@@ -2,8 +2,11 @@
 #include <iostream>
 #include <stdexcept>
 #include <algorithm>
-
-Player::Player(const std::string& name) : name(name), victoryPoints(2), isTurn(false) {
+namespace ariel {
+Player::Player()
+{}
+Player::Player(const std::string &name) : name(name), victoryPoints(2), isTurn(false)
+{
     // Initialize resources with zero
     resources["wood"] = 0;
     resources["brick"] = 0;
@@ -135,3 +138,4 @@ void Player::removeResources(const std::string& resource, int amount) {
     }
     resources[resource] -= amount;
 }
+} // namespace ariel

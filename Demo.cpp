@@ -2,27 +2,32 @@
  * Demo file for Ex3.
  *
  */
-#include <iostream>
-#include <stdexcept>
-#include <vector>
 #include "catan.hpp"
 #include "player.hpp"
 #include "Board.hpp"
+#include "catan.hpp"
+#include <iostream>
+#include <stdexcept>
+#include <vector>
+
 using namespace std;
-// Remove the line below as it is causing the error.
+using namespace ariel;
 
 
 int main()
 {
-     cout << "Players11 created" << endl;
-    Player p1("Amit");
-    Player p2("Yossi");
-    Player p3("Dana");
-    cout << "Players created" << endl;
-    // Catan catan(p1, p2, p3);
-    // // Starting of the game. Every player places two settlements and two roads.
-    // catan.ChooseStartingPlayer();   // should print the name of the starting player, assume it is Amit.
-    // Board board = catan.getBoard(); // get the board of the game.
+        cout << "Players11 created" << endl;
+        Player p1("Amit");
+        Player p2("Yossi");
+        Player p3("Dana");
+        cout << "Players created" << endl;
+        Catan catan(p1, p2, p3);
+        // Starting of the game. Every player places two settlements and two roads.
+        catan.ChooseStartingPlayer();   // should print the name of the starting player, assume it is Amit.
+        Board& board = catan.getBoard(); // get the board of the game.
+       Board board1=catan.getBoard();
+        board.printBoard(board1);        // print the board.
+    // printBoard(board);               // print the board.
     // vector<string> places = {"Forest", "Hills"};
     // vector<int> placesNum = {5, 6};
     // p1.placeSettelemnt(places, placesNum, board);

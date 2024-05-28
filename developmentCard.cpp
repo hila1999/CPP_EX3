@@ -1,7 +1,7 @@
 #include "developmentCard.hpp"
 #include "player.hpp"
 #include <iostream>
-
+using namespace ariel;
 // Monopoly card
 void Monopoly::use(Player& player) {
     std::cout << "Monopoly card used by " << player.getName() << ". All players must give " << player.getName() << " their resources of a chosen type." << std::endl;

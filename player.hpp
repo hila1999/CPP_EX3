@@ -7,7 +7,7 @@
 #include "settlement.hpp"
 #include "city.hpp"
 #include "road.hpp"
-#
+namespace ariel {
 class Player {
 private:
     
@@ -22,6 +22,7 @@ private:
     bool isTurn;
 
     public:
+    Player();// Constructor to initialize resources and victory points
     Player(const std::string& name);
     ~Player();  // Destructor to delete dynamically allocated development cards
 
@@ -44,3 +45,4 @@ private:
     void addResources(const std::string& resource, int amount);
     void removeResources(const std::string& resource, int amount);
 };
+}

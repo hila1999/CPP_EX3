@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-
+namespace ariel {
 class Player;  // Forward declaration
 
 class DevelopmentCard {
@@ -39,3 +39,4 @@ public:
     void use(Player& player) override;
     std::string getType() const override;
 };
+}

@@ -1,6 +1,6 @@
 #pragma once
 #include <string>
-
+namespace ariel {
 class Player;  // Forward declaration to avoid circular dependency
 
 class Structure {
@@ -15,3 +15,4 @@ public:
     Player* getOwner() const;
     std::string getLocation() const;
 };
+}
