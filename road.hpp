@@ -3,6 +3,6 @@
 namespace ariel {
 class Road : public Structure {
 public:
-    Road(Player* owner, const std::string& location);
+    Road(Player* owner);
 };
 }

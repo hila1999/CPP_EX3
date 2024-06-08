@@ -1,4 +1,6 @@
-#pragma once
+#ifndef DEVELOPMENT_CARD_HPP
+#define DEVELOPMENT_CARD_HPP
+
 #include <string>
 namespace ariel {
 class Player;  // Forward declaration
@@ -13,18 +15,21 @@ public:
 class Monopoly : public DevelopmentCard {
 public:
     void use(Player& player) override;
+    void use(Player& player, std::string resourceType);
     std::string getType() const override;
 };
 
 class RoadBuilding : public DevelopmentCard {
 public:
     void use(Player& player) override;
+    void use(Player& player, int road1, int road2);
     std::string getType() const override;
 };
 
 class YearOfPlenty : public DevelopmentCard {
 public:
     void use(Player& player) override;
+    void use(Player& player, std::string resource1, std::string resource2);
     std::string getType() const override;
 };
 
@@ -40,3 +45,4 @@ public:
     std::string getType() const override;
 };
 }
+#endif

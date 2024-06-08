@@ -1,6 +1,7 @@
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic -I include
-SRC_FILES = Demo.cpp Board.cpp city.cpp developmentCard.cpp player.cpp road.cpp settlement.cpp structure.cpp catan.cpp Tile.cpp
+SRC_FILES = Demo.cpp Tile.cpp structure.cpp Board.cpp   city.cpp developmentCard.cpp player.cpp road.cpp settlement.cpp catan.cpp 
+SS=Tile.cpp Demo.cpp
 OBJ_FILES = $(SRC_FILES:.cpp=.o)
 EXECUTABLE = catan
 

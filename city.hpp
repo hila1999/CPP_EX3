@@ -3,6 +3,6 @@
 namespace ariel {
 class City : public Settlement {
 public:
-    City(Player* owner, const std::string& location);
+    City(Player* owner);
 };
 }

@@ -7,7 +7,7 @@ using namespace ariel;
 Catan::Catan(Player& player1, Player& player2, Player& player3) 
     : p1(player1), p2(player2), p3(player3), currentPlayer(nullptr) {
     currentPlayer = &p1;
-    Board board;
+    static Board board;
     }
 
 Catan::~Catan(){
@@ -15,9 +15,11 @@ Catan::~Catan(){
     // delete p2;
     // delete p3;
 }
-string Catan::ChooseStartingPlayer(){
-    // cout<<"the starting player is:"<<currentPlayer ->getName()<<endl;
-    return currentPlayer ->getName();
+void Catan::ChooseStartingPlayer(){
+    cout<<"the starting player is:"<<currentPlayer ->getName()<<endl;
+}
+Player& Catan::getCurrentPlayer(){
+    return *currentPlayer;
 }
 Board& Catan::getBoard(){
     return board;

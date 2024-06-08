@@ -13,7 +13,8 @@ class Catan{
     public:
     Catan(Player& p1, Player& p2, Player& p3);
     ~Catan();
-    std::string ChooseStartingPlayer(); // Return the name of the starting player
-    Board& getBoard();
+    void ChooseStartingPlayer(); // Return the name of the starting player
+    Player &getCurrentPlayer();
+    Board &getBoard();
 };
 }

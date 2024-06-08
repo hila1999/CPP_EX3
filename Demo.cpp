@@ -9,7 +9,11 @@
 #include <iostream>
 #include <stdexcept>
 #include <vector>
-
+//add check that edge near to the vertex
+//add check that the edge and vertex is not already taken
+//make boear static
+//implement cardRoadBuilding implementation cardMonopoly
+//chack if add 3 cardsKingRoad so add 2 victory points
 using namespace std;
 using namespace ariel;
 
@@ -20,14 +24,69 @@ int main()
         Player p1("Amit");
         Player p2("Yossi");
         Player p3("Dana");
-        cout << "Players created" << endl;
+
         Catan catan(p1, p2, p3);
-        // Starting of the game. Every player places two settlements and two roads.
+         cout << "Players created" << endl;
         catan.ChooseStartingPlayer();   // should print the name of the starting player, assume it is Amit.
         Board& board = catan.getBoard(); // get the board of the game.
-       Board board1=catan.getBoard();
-        board.printBoard(board1);        // print the board.
-    // printBoard(board);               // print the board.
+        Structure* s1 = new Settlement(&p1);
+        Structure* s2 = new Settlement(&p1);
+        Structure* s3 = new Settlement(&p2);
+        Structure* s4 = new Settlement(&p2);
+        Structure* s5 = new Settlement(&p3);
+        Structure* s6 = new Settlement(&p3);
+        board.placeStructure(*s1, 21);
+        board.placeStructure(*s2, 33);
+        board.placeStructure(*s3, 19);
+        board.placeStructure(*s4, 44);
+        board.placeStructure(*s5, 12);
+        board.placeStructure(*s6, 40);
+        Structure* r1 = new Road(&p1);
+        Structure* r2 = new Road(&p1);
+        Structure* r3 = new Road(&p2);
+        Structure* r4 = new Road(&p2);
+        Structure* r5 = new Road(&p3);
+        Structure* r6 = new Road(&p3);
+        board.placeRoad(*r1, 25);
+        board.placeRoad(*r2, 38);
+        board.placeRoad(*r3, 24);
+        board.placeRoad(*r4, 48);
+        board.placeRoad(*r5, 44);
+        board.placeRoad(*r6, 8);
+        cout <<  "RAOAD AND SETTLEMENTS CREATED" << endl;
+        p1.addResources("wood", 3);
+        p2.addResources("wood", 2);
+        p3.addResources("wood", 1);
+        p2.addResources("ore", 1);
+        p3.addResources("ore", 2);
+        p2.addResources("grain", 1);
+        p3.addResources("grain", 1);
+        p2.addResources("wool", 1);
+        p1.addResources("brick", 1);
+        p2.addResources("brick", 1);
+        p3.addResources("brick", 1);
+        catan.getCurrentPlayer().rollDice(board);
+        p1.placeRoad(15, board);
+        // p1.placeSettlement(13, board);
+        p1.trade(p2, "wood", "ore", 1, 1); // p1 trades 1 wood for 1 brick with p2.
+        p1.addResources("ore" , 100);
+        p1.addResources("wheat" ,10);
+        p1.addResources("grain" ,10);
+        p1.addResources("wool" ,10);
+        p1.upgradeToCity(board, 21);
+        cout <<p1.getVictoryPoints() <<endl;
+        p1.buyDevelopmentCard(board);
+        p1.buyDevelopmentCard(board);
+        p1.buyDevelopmentCard(board);
+        p1.buyDevelopmentCard(board);
+        p1.buyDevelopmentCard(board);
+        p1.buyDevelopmentCard(board);
+        p1.buyDevelopmentCard(board);
+        p1.buyDevelopmentCard(board);
+        p1.useDevelopmentCard();
+        p1.useDevelopmentCard();
+        p1.useDevelopmentCard();
+        p1.useDevelopmentCard();
     // vector<string> places = {"Forest", "Hills"};
     // vector<int> placesNum = {5, 6};
     // p1.placeSettelemnt(places, placesNum, board);

@@ -1,27 +1,72 @@
 #pragma once
-#include <vector>
 #include "Tile.hpp"
+
+#include "player.hpp"
+#include "structure.hpp"
+#include <vector>
+using namespace std;
 namespace ariel {
-// class Board{
-
-// public:
-// Board();
-
-
-// };
-class Board {
-private:
-    std::vector<Tile> tiles;
-
+    class Tile;
+     class Player;
+     
+    class Vertex {
 public:
-    Board();
-    void generateBoard();
-    Tile& getTile(int number);
-    bool isValidSettlementLocation(int location);
-    bool isValidRoadLocation(int location);
-    const std::vector<Tile>& getTiles() const {
-        return tiles;
-    }
-    void printBoard(const Board& board);
+    Player* owner;
+    std::vector<Structure*> structures;
+    std::vector<Tile> adjacentTiles;
+
+    Vertex();
+
+    // Constructor
+    Vertex(Player* owner , std::vector<Tile> adjacentTiles);
+
+    // Member functions
+    void addAdjacentTile(const std::vector<Tile>& tiles);
+    Player* getOwner() const;
+    void addStructure(Structure* structure);
+    bool hasSettlement() const;
+    void upgradeToCity();
+    void setOwner(Player *owner);
 };
+
+
+    class Edge {
+    private:
+        int id;
+        Player* owner;
+    public:
+        std::vector<int> neighbors_vertice;
+        std::vector<Structure*> structures;
+        Edge();
+        Edge(int id, Player* owner, vector<int> neighbors_vertice);
+        Player* getOwner() const;
+        void setOwner(Player *owner);
+        void addStructure(Structure *structure);
+        ~Edge() = default;
+    };
+
+    class Board {
+    private:
+        std::vector<Tile> tiles;
+        std::vector<Vertex> vertices;
+        std::vector<Edge> edges;
+    public:
+        
+        Board();
+        void make();
+        Tile& getTile(int number);
+        const std::vector<Tile>& getTiles() const;
+        std::vector<Vertex>& getVertices() ;
+        void distributeResources(int diceRoll);
+        void placeStructure(Structure &structure, int vertexIndex);
+        void placeRoad(Structure &structure, int edgeIndex);
+        int getVerticesCount() const;
+        bool hasSettlement(int vertexIndex) const;
+        Vertex &getVertex(int vertexIndex);
+
+    static int knightCount;
+    static int victoryPointCount;
+    static const int MAX_KNIGHT_CARDS = 3;
+    static const int MAX_VICTORY_POINT_CARDS = 4;
+    };
 }

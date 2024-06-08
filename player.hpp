@@ -1,4 +1,5 @@
 #pragma once
+#include "structure.hpp"
 #include <string>
 #include <map>
 #include <vector>
@@ -8,10 +9,9 @@
 #include "city.hpp"
 #include "road.hpp"
 namespace ariel {
+    class Board;
 class Player {
-private:
-    
-
+    private:
     std::string name;
     std::map<std::string, int> resources;
     std::vector<Settlement> settlements;
@@ -28,20 +28,22 @@ private:
 
 
     std::string getName() const;
-
-    void rollDice();
-    void placeSettlement(const std::vector<std::string>& places, const std::vector<int>& placesNum, Board& board);
-    void placeRoad(const std::vector<std::string>& places, const std::vector<int>& placesNum, Board& board);
-    void upgradeToCity(const std::vector<std::string>& places, const std::vector<int>& placesNum, Board& board);
-    void trade(Player& other, const std::string& giveResource, const std::string& getResource, int giveAmount, int getAmount);
-    void buyDevelopmentCard();
+    void buyDevelopmentCard(Board& board);
     void useDevelopmentCard();
+    // void buyDevelopmentCard();
+    // void useDevelopmentCard();
     void endTurn();
-
     void printPoints() const;
+    void rollDice(Board &board);
+    void placeRoad(int placesNum, Board &board);
+    void placeSettlement(int vertexIndex, Board &board);
+    
+    void trade(Player& other, const std::string& giveResource, const std::string& getResource, int giveAmount, int getAmount);
+    void upgradeToCity(Board &board, int vertexIndex);
+   
 
     int getVictoryPoints() const;
-
+    void addVictoryPoints(int points);
     void addResources(const std::string& resource, int amount);
     void removeResources(const std::string& resource, int amount);
 };

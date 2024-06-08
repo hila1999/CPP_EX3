@@ -1,3 +1,4 @@
+
 #pragma once
 #include <string>
 namespace ariel {
@@ -6,13 +7,28 @@ class Player;  // Forward declaration to avoid circular dependency
 class Structure {
 protected:
     Player* owner;
-    std::string location;
+    
 
 public:
-    Structure(Player* owner, const std::string& location);
+    Structure(Player* owner);
     virtual ~Structure() = default;
 
     Player* getOwner() const;
-    std::string getLocation() const;
+    
 };
 }
+// #pragma once
+// #include "player.hpp" // Include the Player class definition
+
+// namespace ariel {
+//     class Player;
+//     class Structure {
+//     private:
+//         Player* owner;
+//     public:
+//         Structure(Player* owner);
+//         virtual ~Structure() = default;
+//         Player* getOwner() const;
+//     };
+// }
+
