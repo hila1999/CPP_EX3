@@ -20,13 +20,15 @@ class Player {
     std::vector<DevelopmentCard*> developmentCards;
     int victoryPoints;
     bool isTurn;
+    int numOfKnights;
 
     public:
     Player();// Constructor to initialize resources and victory points
     Player(const std::string& name);
     ~Player();  // Destructor to delete dynamically allocated development cards
 
-
+    void addKnight();
+    int getNumOfKnights() const;
     std::string getName() const;
     void buyDevelopmentCard(Board& board);
     void useDevelopmentCard();

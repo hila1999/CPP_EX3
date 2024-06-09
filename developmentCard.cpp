@@ -60,6 +60,12 @@ std::string YearOfPlenty::getType() const {
 }
 
 // Knight card
+Knight::Knight(Player* owner) : owner(owner) {
+    owner->addKnight();
+    if(owner->getNumOfKnights() >= 3){
+        owner->addVictoryPoints(2);
+    }
+}
 void Knight::use(Player& player) {
     std::cout << "Knight card used by " << player.getName() << ". Player can move the robber and steal a resource card from one player." << std::endl;
     // Implement the logic to move the robber and steal a resource from one player

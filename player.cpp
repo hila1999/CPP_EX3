@@ -25,6 +25,16 @@ Player::~Player() {
     }
 }
 
+void Player::addKnight()
+{
+    numOfKnights++;
+}
+
+int Player::getNumOfKnights() const
+{
+    return numOfKnights;
+}
+
 std::string Player::getName() const {
     return name;
 }
@@ -54,7 +64,7 @@ void Player::buyDevelopmentCard(Board& board) {
             switch (randNum) {
                 case 0:
                     if (board.knightCount < board.MAX_KNIGHT_CARDS) {
-                        card = new Knight();
+                        card = new Knight(this);
                         board.knightCount++;
                     }
                     break;

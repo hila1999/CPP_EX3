@@ -7,6 +7,7 @@ class Player;  // Forward declaration
 
 class DevelopmentCard {
 public:
+    DevelopmentCard() = default; // Default constructor
     virtual ~DevelopmentCard() = default;
     virtual void use(Player& player) = 0;  // Pure virtual function for using the card
     virtual std::string getType() const = 0;  // Pure virtual function to get the card type
@@ -34,8 +35,11 @@ public:
 };
 
 class Knight : public DevelopmentCard {
+private:
+    Player* owner;
 public:
-    void use(Player& player) override;
+    Knight(Player *owner);
+    void use(Player &player) override;
     std::string getType() const override;
 };
 
