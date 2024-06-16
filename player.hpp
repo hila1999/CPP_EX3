@@ -26,27 +26,32 @@ class Player {
     Player();// Constructor to initialize resources and victory points
     Player(const std::string& name);
     ~Player();  // Destructor to delete dynamically allocated development cards
-
+    
+    bool isTurnPlayer() const;
+    void setTurn(bool turn);
     void addKnight();
     int getNumOfKnights() const;
     std::string getName() const;
     void buyDevelopmentCard(Board& board);
-    void useDevelopmentCard();
-    // void buyDevelopmentCard();
-    // void useDevelopmentCard();
+    void useDevelopmentCard(Board& board);
     void endTurn();
     void printPoints() const;
     void rollDice(Board &board);
     void placeRoad(int placesNum, Board &board);
-    void placeSettlement(int vertexIndex, Board &board);
+    Settlement* placeSettlement(int vertexIndex, Board &board);
     
     void trade(Player& other, const std::string& giveResource, const std::string& getResource, int giveAmount, int getAmount);
-    void upgradeToCity(Board &board, int vertexIndex);
-   
-
+    int removeAllResources(const std::string &resourceType);
+    City* upgradeToCity(Board &board, int vertexIndex);
+    int getResources(const std::string& resource) const;
     int getVictoryPoints() const;
     void addVictoryPoints(int points);
     void addResources(const std::string& resource, int amount);
     void removeResources(const std::string& resource, int amount);
+    const std::vector<Settlement>& getSettlements() ;
+    const std::vector<City>& getCities()  ;
+    const std::vector<Road>& getRoads()  ;
+
+
 };
 }

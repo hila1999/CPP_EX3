@@ -5,9 +5,9 @@ namespace ariel {
 class Player;  // Forward declaration to avoid circular dependency
 
 class Catan{
-    Player p1;
-    Player p2;
-    Player p3;
+    Player& p1;
+    Player& p2;
+    Player& p3;
     Player* currentPlayer;
     Board board;
     public:

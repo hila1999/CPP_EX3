@@ -1,6 +1,6 @@
 #pragma once
 #include "Tile.hpp"
-
+#include "city.hpp"
 #include "player.hpp"
 #include "structure.hpp"
 #include <vector>
@@ -19,14 +19,16 @@ public:
 
     // Constructor
     Vertex(Player* owner , std::vector<Tile> adjacentTiles);
+    ~Vertex() ;
 
     // Member functions
     void addAdjacentTile(const std::vector<Tile>& tiles);
     Player* getOwner() const;
     void addStructure(Structure* structure);
     bool hasSettlement() const;
-    void upgradeToCity();
+    City* upgradeToCity();
     void setOwner(Player *owner);
+    
 };
 
 
@@ -50,6 +52,8 @@ public:
         std::vector<Tile> tiles;
         std::vector<Vertex> vertices;
         std::vector<Edge> edges;
+        std::vector<Player*> players; // Container to hold all players
+
     public:
         
         Board();
@@ -63,6 +67,8 @@ public:
         int getVerticesCount() const;
         bool hasSettlement(int vertexIndex) const;
         Vertex &getVertex(int vertexIndex);
+        void addPlayer(Player& player); // Method to add a player to the game
+        std::vector<Player*>& getPlayers(); // Method to get all players by reference
 
     static int knightCount;
     static int victoryPointCount;

@@ -15,8 +15,11 @@
 namespace ariel {
     Vertex::Vertex() : owner(nullptr) {}
     Vertex::Vertex(Player *owner, std::vector<Tile> adjacentTiles) : owner(owner), adjacentTiles(adjacentTiles) {}
-
-
+    Vertex::~Vertex()
+    {
+        
+    }
+    
     void Vertex::addAdjacentTile(const std::vector<Tile>& tiles) {
         adjacentTiles.insert(adjacentTiles.end(), tiles.begin(), tiles.end());
     }
@@ -39,19 +42,19 @@ namespace ariel {
      return false;
     }
 
-    void Vertex::upgradeToCity() {
-    // Find the settlement in the structures vector
-    for (auto& structure : structures) {
-        Settlement* settlement = dynamic_cast<Settlement*>(structure);
-        if (settlement != nullptr) {
-            // Replace the settlement with a city
-            City* city = new City(settlement->getOwner()); // Assuming City constructor takes a Player* parameter
-            structure = city;
-            delete settlement; // Free memory occupied by the settlement
-            return;
+    City* Vertex::upgradeToCity() {
+        // Find the settlement in the structures vector
+        for (auto it = structures.begin(); it != structures.end(); ++it) {
+            Settlement* settlement = dynamic_cast<Settlement*>(*it);
+            if (settlement != nullptr) {
+                // Replace the settlement with a city
+                City* city = new City(settlement->getOwner()); // Assuming City constructor takes a Player* parameter
+                delete *it; // Delete the settlement
+                *it = city;
+                return city; 
+            }
         }
     }
-}
     
     Edge::Edge() : owner(nullptr)
     {
@@ -182,7 +185,7 @@ namespace ariel {
             vertices[53].addAdjacentTile({tile19});
             
 
-            edges.resize(72);
+            edges.resize(70);
               // Manually setting neighbors based on a Catan-like hexagonal layout
             edges[0].neighbors_vertice = {0, 1};
             edges[1].neighbors_vertice = {1, 2};
@@ -190,22 +193,22 @@ namespace ariel {
             edges[3].neighbors_vertice = {3, 4};
             edges[4].neighbors_vertice = {4, 5};
             edges[5].neighbors_vertice = {5, 6};
-            edges[6].neighbors_vertice = {0, 8};
-            edges[7].neighbors_vertice = {1, 10};
-            edges[8].neighbors_vertice = {23, 12};// i changed 2 to 23
-            edges[9].neighbors_vertice = {3, 14};
-            edges[10].neighbors_vertice = {4, 16};
-            edges[11].neighbors_vertice = {5, 18};
-            edges[12].neighbors_vertice = {6, 20};
-            edges[13].neighbors_vertice = {8, 9};
-            edges[14].neighbors_vertice = {9, 10};
-            edges[15].neighbors_vertice = {10, 11};
-            edges[16].neighbors_vertice = {11, 12};
-            edges[17].neighbors_vertice = {12, 13};
-            edges[18].neighbors_vertice = {13, 14};
-            edges[19].neighbors_vertice = {14, 15};
-            edges[20].neighbors_vertice = {15, 16};
-            edges[21].neighbors_vertice = {16, 17};
+            edges[6].neighbors_vertice = {0, 7};
+            edges[7].neighbors_vertice = {2, 9};
+            edges[8].neighbors_vertice = {4, 11};// i changed 2 to 23
+            edges[9].neighbors_vertice = {6, 13};
+            edges[10].neighbors_vertice = {7, 8};
+            edges[11].neighbors_vertice = {8, 9};
+            edges[12].neighbors_vertice = {9, 10};
+            edges[13].neighbors_vertice = {10, 11};
+            edges[14].neighbors_vertice = {11, 12};
+            edges[15].neighbors_vertice = {12, 13};
+            edges[16].neighbors_vertice = {13, 14};
+            edges[17].neighbors_vertice = {15, 17};
+            edges[18].neighbors_vertice = {8, 19};
+            edges[19].neighbors_vertice = {10, 21};
+            edges[20].neighbors_vertice = {12, 23};
+            edges[21].neighbors_vertice = {14, 25};
             edges[22].neighbors_vertice = {17, 18};
             edges[23].neighbors_vertice = {18, 19};
             edges[24].neighbors_vertice = {19, 20};
@@ -215,50 +218,46 @@ namespace ariel {
             edges[28].neighbors_vertice = {23, 24};
             edges[29].neighbors_vertice = {24, 25};
             edges[30].neighbors_vertice = {25, 26};
-            edges[31].neighbors_vertice = {26, 27};
-            edges[32].neighbors_vertice = {27, 28};
-            edges[33].neighbors_vertice = {28, 29};
-            edges[34].neighbors_vertice = {29, 30};
-            edges[35].neighbors_vertice = {30, 31};
-            edges[36].neighbors_vertice = {31, 32};
-            edges[37].neighbors_vertice = {32, 33};
-            edges[38].neighbors_vertice = {33, 34};
+            edges[31].neighbors_vertice = {16, 37};
+            edges[32].neighbors_vertice = {18, 35};
+            edges[33].neighbors_vertice = {20, 33};
+            edges[34].neighbors_vertice = {22, 31};
+            edges[35].neighbors_vertice = {24, 29};
+            edges[36].neighbors_vertice = {26, 27};
+            edges[37].neighbors_vertice = {36, 37};
+            edges[38].neighbors_vertice = {35, 36};
             edges[39].neighbors_vertice = {34, 35};
-            edges[40].neighbors_vertice = {35, 36};
-            edges[41].neighbors_vertice = {36, 37};
-            edges[42].neighbors_vertice = {37, 38};
-            edges[43].neighbors_vertice = {38, 39};
-            edges[44].neighbors_vertice = {39, 40};
-            edges[45].neighbors_vertice = {40, 41};
-            edges[46].neighbors_vertice = {41, 42};
-            edges[47].neighbors_vertice = {42, 43};
-            edges[48].neighbors_vertice = {43, 44};
-            edges[49].neighbors_vertice = {44, 45};
-            edges[50].neighbors_vertice = {45, 46};
-            edges[51].neighbors_vertice = {46, 47};
-            edges[52].neighbors_vertice = {47, 48};
-            edges[53].neighbors_vertice = {48, 49};
-            edges[54].neighbors_vertice = {49, 50};
-            edges[55].neighbors_vertice = {50, 51};
-            edges[56].neighbors_vertice = {51, 52};
-            edges[57].neighbors_vertice = {52, 53};
-            edges[58].neighbors_vertice = {53, 54};
-            edges[59].neighbors_vertice = {54, 55};
-            edges[60].neighbors_vertice = {55, 56};
-            edges[61].neighbors_vertice = {56, 57};
-            edges[62].neighbors_vertice = {57, 58};
-            edges[63].neighbors_vertice = {58, 59};
-            edges[64].neighbors_vertice = {59, 60};
-            edges[65].neighbors_vertice = {60, 61};
-            edges[66].neighbors_vertice = {61, 62};
-            edges[67].neighbors_vertice = {62, 63};
-            edges[68].neighbors_vertice = {63, 64};
-            edges[69].neighbors_vertice = {64, 65};
-            edges[70].neighbors_vertice = {65, 66};
-            edges[71].neighbors_vertice = {66, 67};
-
+            edges[40].neighbors_vertice = {34, 33};
+            edges[41].neighbors_vertice = {32, 33};
+            edges[42].neighbors_vertice = {32, 31};
+            edges[43].neighbors_vertice = {31, 30};
+            edges[44].neighbors_vertice = {30, 29};
+            edges[45].neighbors_vertice = {29, 28};
+            edges[46].neighbors_vertice = {28, 27};
+            edges[47].neighbors_vertice = {36, 38};
+            edges[48].neighbors_vertice = {34, 40};
+            edges[49].neighbors_vertice = {32, 42};
+            edges[50].neighbors_vertice = {30, 44};
+            edges[51].neighbors_vertice = {46, 28};
+            edges[52].neighbors_vertice = {38, 39};
+            edges[53].neighbors_vertice = {39, 40};
+            edges[54].neighbors_vertice = {40, 41};
+            edges[55].neighbors_vertice = {41, 42};
+            edges[56].neighbors_vertice = {42, 43};
+            edges[57].neighbors_vertice = {43, 44};
+            edges[58].neighbors_vertice = {44, 45};
+            edges[59].neighbors_vertice = {45, 46};
+            edges[60].neighbors_vertice = {39, 53};
+            edges[61].neighbors_vertice = {41, 51};
+            edges[62].neighbors_vertice = {43, 49};
+            edges[63].neighbors_vertice = {45, 47};
+            edges[64].neighbors_vertice = {52, 53};
+            edges[65].neighbors_vertice = {51, 52};
+            edges[66].neighbors_vertice = {50, 51};
+            edges[67].neighbors_vertice = {49, 50};
+            edges[68].neighbors_vertice = {48, 49};
+            edges[69].neighbors_vertice = {48, 47};
             
-
             }
     
     Board::Board() {
@@ -281,19 +280,7 @@ namespace ariel {
     {
           return vertices;    }
 
-    // void Board::distributeResources(int diceRoll) {
-    //     for (auto& tile : tiles) {
-    //         if (tile.getNumber() == diceRoll) {
-    //             const std::vector<int>& vertices = tile.getVertices();
-    //             for (const auto& vertexI : vertices) {
-    //                 if (Player* owner = vertices[vertexI].getOwner()) {
-    //                     owner.addResources(tile.getResourceName(), 1);
-    //                     std::cout << owner.getName() << " receives " << tile.getResourceName() << " from tile " << tile.getNumber() << std::endl;
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    
     void Board::distributeResources(int diceRoll) {
         cout << "Distributing resources for dice roll " << diceRoll << endl;
     for (const auto& tile : tiles) {
@@ -316,6 +303,7 @@ namespace ariel {
     
     void Vertex::setOwner(Player* owner) {
         this->owner = owner;
+        
     }
    
     void Board::placeStructure(Structure& structure, int vertexIndex) {
@@ -324,12 +312,13 @@ namespace ariel {
     }
     
     if (vertices[vertexIndex].getOwner() != nullptr) {
-        throw std::runtime_error("Vertex already has an owner");
+        throw std::invalid_argument("Vertex already has an owner");
     }
-    
-    vertices[vertexIndex].setOwner(structure.getOwner());
+    Vertex& vertex = vertices[vertexIndex];
+    vertex.setOwner(structure.getOwner());
     // Assuming each vertex has a method to add a structure
     vertices[vertexIndex].addStructure(&structure);
+    // structure.getOwner()->addVictoryPoints(1);
     
     std::cout << "Placed " << typeid(structure).name() << " at vertex " << vertexIndex << std::endl;
 }
@@ -337,16 +326,30 @@ namespace ariel {
     if (edgeIndex < 0 || edgeIndex >= edges.size()) {
         throw std::out_of_range("Invalid edge index");
     }
-    
-    if (edges[edgeIndex].getOwner() != nullptr) {
-        throw std::runtime_error("Edge already has an owner");
+     Edge& edge = edges[edgeIndex];
+    if (edge.getOwner() != nullptr) {
+        throw std::invalid_argument("Edge already has an owner");
+    }
+    for (int neighborId : edges[edgeIndex].neighbors_vertice){
+        Vertex& vertex = vertices[neighborId];
+        if(vertex.owner==structure.getOwner()){
+        edges[edgeIndex].setOwner(structure.getOwner());
+    // Assuming each edge has a method to add a structure
+        edges[edgeIndex].addStructure(&structure);
+        std::cout << "Placed " << typeid(structure).name() << " at edge " << edgeIndex << std::endl;
+         break;
+        }
     }
     
-    edges[edgeIndex].setOwner(structure.getOwner());
-    // Assuming each edge has a method to add a structure
-    edges[edgeIndex].addStructure(&structure);
-    
-    std::cout << "Placed " << typeid(structure).name() << " at edge " << edgeIndex << std::endl;
+}
+ 
+    void Board::addPlayer(Player &player)
+{
+    players.push_back(&player);
 }
 
+
+std::vector<Player *> &Board::getPlayers()
+{
+    return players;}
 }

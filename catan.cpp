@@ -5,18 +5,20 @@
 using namespace std;
 using namespace ariel;
 Catan::Catan(Player& player1, Player& player2, Player& player3) 
-    : p1(player1), p2(player2), p3(player3), currentPlayer(nullptr) {
-    currentPlayer = &p1;
+    : p1(player1), p2(player2), p3(player3), currentPlayer(&p1) {
+    // currentPlayer = &p1;
     static Board board;
     }
+    
 
-Catan::~Catan(){
-    // delete p1;
-    // delete p2;
-    // delete p3;
-}
-void Catan::ChooseStartingPlayer(){
-    cout<<"the starting player is:"<<currentPlayer ->getName()<<endl;
+Catan::~Catan(){}
+    
+void Catan::ChooseStartingPlayer() {
+    currentPlayer = &p1;
+    p1.setTurn(true);
+    p2.setTurn(false);
+    p3.setTurn(false);
+    std::cout << "The starting player is: " << currentPlayer->getName() << std::endl;
 }
 Player& Catan::getCurrentPlayer(){
     return *currentPlayer;

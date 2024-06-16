@@ -10,19 +10,27 @@
 namespace ariel {
 Player::Player()
 {}
-Player::Player(const std::string &name) : name(name), victoryPoints(2), isTurn(false)
+Player::Player(const std::string &name) : name(name), victoryPoints(2), isTurn(false), numOfKnights(0)
 {
     // Initialize resources with zero
     resources["wood"] = 0; 
     resources["brick"] = 0;
     resources["wool"] = 0;
-    resources["grain"] = 0;
+    resources["wheat"] = 0;
     resources["ore"] = 0;
 }
 Player::~Player() {
     for (DevelopmentCard* card : developmentCards) {
         delete card;
     }
+}
+
+void Player::setTurn(bool isTurn) {
+    this->isTurn = isTurn;
+}
+
+bool Player::isTurnPlayer() const {
+    return isTurn;
 }
 
 void Player::addKnight()
@@ -41,7 +49,8 @@ std::string Player::getName() const {
 
 void Player::rollDice(Board& board)
 {
-     std::random_device rd; // Random number generator
+    if(isTurn)
+{   std::random_device rd; // Random number generator
     std::mt19937 gen(rd()); // Mersenne Twister engine
     std::uniform_int_distribution<> dis(1, 6); // Uniform distribution in range [1, 6]
 
@@ -51,11 +60,16 @@ void Player::rollDice(Board& board)
 
     std::cout << name << " rolled " << dice1 << " and " << dice2 << " for a total of " << lastRoll << std::endl;
         board.distributeResources(lastRoll); // Call distributeResources with the roll outcome
+        }
+        else
+        {
+            throw std::runtime_error("Not your turn");
+        }
 
 }
 
 void Player::buyDevelopmentCard(Board& board) {
-    if (resources["ore"] >= 1 && resources["wool"] >= 1 && resources["grain"] >= 1) {
+    if (resources["ore"] >= 1 && resources["wool"] >= 1 && resources["wheat"] >= 1) {
         DevelopmentCard* card = nullptr;
 
         while (true) {
@@ -94,21 +108,22 @@ void Player::buyDevelopmentCard(Board& board) {
         // developmentCards.push_back(<DevelopmentCard>(card));
         removeResources("ore", 1);
         removeResources("wool", 1);
-        removeResources("grain", 1);
+        removeResources("wheat", 1);
         std::cout << name << " bought a development card." << card ->getType() << std::endl;
     } else {
         throw std::runtime_error("Not enough resources to buy a development card.");
     }
 }
 
-void Player::useDevelopmentCard() {
+void Player::useDevelopmentCard(Board& board) {
     if (!developmentCards.empty()) {
         DevelopmentCard* card = std::move(developmentCards.back());
-        card->use(*this);
+        card->use(*this, board);
         std::cout << name << " used a development card." << card->getType() << std::endl;
-           if(card->getType() != "Victory Point"){
+           if(card->getType() != "Victory Point" && card->getType() != "Knight"){
         developmentCards.pop_back();
-        std::cout << name << " take the cardout" << std::endl;}
+        delete card;
+        std::cout << name << " the card delet" << std::endl;}
     } else {
         throw std::runtime_error("No development cards to use.");
     }
@@ -126,16 +141,23 @@ void Player::placeRoad(int placesNum, Board& board) { //add check if the player 
         throw std::runtime_error("Not enough resources to place a road.");
     }
 }
-void Player::placeSettlement(int vertexIndex, Board& board) {
-    if (resources["wood"] >= 1 && resources["brick"] >= 1 && resources["sheep"] >= 1 && resources["wheat"] >= 1) {
-        Settlement settlement(this);
-        settlements.push_back(settlement);
-        board.placeStructure(settlement, vertexIndex);
-        removeResources("wood", 1);
-        removeResources("brick", 1);
-        removeResources("sheep", 1);
-        removeResources("wheat", 1);
-        std::cout << name << " placed a settlement." << std::endl;
+
+Settlement* Player::placeSettlement(int vertexIndex, Board& board) {
+    if (resources["wood"] >= 1 && resources["brick"] >= 1 && resources["wool"] >= 1 && resources["wheat"] >= 1) {
+        Settlement* settlement = new Settlement(this);
+        try {
+            board.placeStructure(*settlement, vertexIndex);
+            settlements.push_back(*settlement);
+            removeResources("wood", 1);
+            removeResources("brick", 1);
+            removeResources("wool", 1);
+            removeResources("wheat", 1);
+            std::cout << name << " placed a settlement." << std::endl;
+            return settlement;
+        } catch (const std::invalid_argument& e) {
+            delete settlement; // Clean up to avoid memory leak
+            throw; // Re-throw the caught exception
+        }
     } else {
         throw std::runtime_error("Not enough resources to place a settlement.");
     }
@@ -158,6 +180,12 @@ void Player::trade(Player& otherPlayer, const std::string& resourceOffered, cons
     otherPlayer.resources[resourceRequested] -= requestedAmount;
     
     std::cout << name << " traded " << offeredAmount << " " << resourceOffered << " for " << requestedAmount << " " << resourceRequested << " with " << otherPlayer.getName() << "." << std::endl;
+}
+
+int Player::removeAllResources(const std::string& resourceType) {
+    int resourcesRemoved = resources[resourceType]; // Assuming resourceMap holds the resource count for each type
+    resources[resourceType] = 0;
+    return resourcesRemoved;
 }
 
 int Board::getVerticesCount() const {
@@ -187,7 +215,7 @@ Vertex& Board::getVertex(int vertexIndex) {
     return vertices[vertexIndex];
 }
 
-void Player::upgradeToCity(Board &board, int vertexIndex) {
+City* Player::upgradeToCity(Board &board, int vertexIndex) {
     // Check if the player has enough resources
     if (resources["ore"] < 3 || resources["wheat"] < 2) {
         throw std::runtime_error("Not enough resources to upgrade to a city.");
@@ -207,42 +235,23 @@ void Player::upgradeToCity(Board &board, int vertexIndex) {
     }
     
     // Replace the settlement with a city
-    vertex.upgradeToCity();
+    City* city =vertex.upgradeToCity();
     addVictoryPoints(1);
+    cities.push_back(*city);
     // Deduct resources from the player
     resources["ore"] -= 3;
     resources["wheat"] -= 2;
     
     std::cout << name << " upgraded a settlement to a city." << std::endl;
+    return city;
+}
+
+int Player::getResources(const std::string &resource) const
+{
+    return resources.at(resource);
 }
 
 
-
-
-    // void Player::buyDevelopmentCard() {
-    //     if (resources["ore"] >= 1 && resources["wool"] >= 1 && resources["grain"] >= 1) {
-    //         DevelopmentCard* card = new DevelopmentCard(); // This should be a specific card like KnightCard
-    //         developmentCards.push_back(card);
-    //         removeResources("ore", 1);
-    //         removeResources("wool", 1);
-    //         removeResources("grain", 1);
-    //         std::cout << name << " bought a development card." << std::endl;
-    //     } else {
-    //         throw std::runtime_error("Not enough resources to buy a development card.");
-    //     }
-    // }
-
-    // void Player::useDevelopmentCard() {
-    //     if (!developmentCards.empty()) {
-    //         DevelopmentCard* card = developmentCards.back();
-    //         card->use();
-    //         developmentCards.pop_back();
-    //         delete card;
-    //         std::cout << name << " used a development card." << std::endl;
-    //     } else {
-    //         throw std::runtime_error("No development cards to use.");
-    //     }
-    // }
 
 
 void Player::endTurn() {
@@ -273,5 +282,19 @@ void Player::removeResources(const std::string& resource, int amount) {
     }
     resources[resource] -= amount;
 }
+
+const std::vector<Settlement> &Player::getSettlements() 
+{
+    return settlements;}
+
+const std::vector<City> &Player::getCities() 
+{
+    return cities;}
+
+const std::vector<Road> &Player::getRoads()
+{
+    return roads;}
+
+    
 
 } // namespace ariel

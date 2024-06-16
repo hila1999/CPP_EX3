@@ -29,6 +29,9 @@ int main()
          cout << "Players created" << endl;
         catan.ChooseStartingPlayer();   // should print the name of the starting player, assume it is Amit.
         Board& board = catan.getBoard(); // get the board of the game.
+        board.addPlayer(p1);
+        board.addPlayer(p2);
+        board.addPlayer(p3);
         Structure* s1 = new Settlement(&p1);
         Structure* s2 = new Settlement(&p1);
         Structure* s3 = new Settlement(&p2);
@@ -52,29 +55,37 @@ int main()
         board.placeRoad(*r3, 24);
         board.placeRoad(*r4, 48);
         board.placeRoad(*r5, 44);
-        board.placeRoad(*r6, 8);
+        board.placeRoad(*r6, 20);
         cout <<  "RAOAD AND SETTLEMENTS CREATED" << endl;
-        p1.addResources("wood", 3);
+        p1.addResources("wood", 5);
         p2.addResources("wood", 2);
         p3.addResources("wood", 1);
         p2.addResources("ore", 1);
         p3.addResources("ore", 2);
-        p2.addResources("grain", 1);
-        p3.addResources("grain", 1);
+        p2.addResources("wheat", 1);
+        p3.addResources("wheat", 1);
         p2.addResources("wool", 1);
-        p1.addResources("brick", 1);
+        p1.addResources("brick", 3);
         p2.addResources("brick", 1);
         p3.addResources("brick", 1);
+        p1.addResources("wheat", 5);
+        p1.addResources("wool", 1);
+        p1.addResources("ore", 100);
         catan.getCurrentPlayer().rollDice(board);
-        p1.placeRoad(15, board);
-        // p1.placeSettlement(13, board);
+        p1.placeRoad(26, board);
+        Settlement* s25= p1.placeSettlement(13, board);
+        City* c1=p1.upgradeToCity(board, 13);
         p1.trade(p2, "wood", "ore", 1, 1); // p1 trades 1 wood for 1 brick with p2.
         p1.addResources("ore" , 100);
         p1.addResources("wheat" ,10);
-        p1.addResources("grain" ,10);
+        p1.addResources("wheat" ,10);
         p1.addResources("wool" ,10);
-        p1.upgradeToCity(board, 21);
+        p2.addResources("ore" , 100);
+      
+        s1=p1.upgradeToCity(board, 21);
         cout <<p1.getVictoryPoints() <<endl;
+        cout << p1.getName()<< " has" <<p1.getResources("ore") << " ore" << endl;
+        cout <<p2.getName() << p2.getResources("ore") << endl;
         p1.buyDevelopmentCard(board);
         p1.buyDevelopmentCard(board);
         p1.buyDevelopmentCard(board);
@@ -83,18 +94,55 @@ int main()
         p1.buyDevelopmentCard(board);
         p1.buyDevelopmentCard(board);
         p1.buyDevelopmentCard(board);
-        p1.useDevelopmentCard();
-        p1.useDevelopmentCard();
-        p1.useDevelopmentCard();
-        p1.useDevelopmentCard();
-    // vector<string> places = {"Forest", "Hills"};
-    // vector<int> placesNum = {5, 6};
-    // p1.placeSettelemnt(places, placesNum, board);
-    // p1.placeRoad(places, placesNum, board);
-    // vector<string> places = {"Agricultural Land", "Desert"};
-    // vector<int> placesNum = {3, 4};
-    // p1.placeSettelemnt(places, placesNum, board);
-    // p1.placeRoad(places, placesNum, board); // p1 chooses Forest, hills, Agricultural Land, Desert with numbers 5, 6, 3, 4.
+        p1.useDevelopmentCard(board);
+        p1.useDevelopmentCard(board);
+        p1.useDevelopmentCard(board);
+        p1.useDevelopmentCard(board);
+        
+        cout << p1.getName()<< " has" <<p1.getResources("ore") << " ore" << endl;
+        p1.endTurn();
+        p2.setTurn(true);
+        p2.rollDice(board);
+
+        try
+        {
+          p3.rollDice(board);
+        }
+        catch (const std::runtime_error &e)
+        {
+          cout << e.what() << endl;
+          // Add a statement here if needed
+        }
+        p2.endTurn();
+        try
+        {
+        Settlement* s26= p1.placeSettlement(44, board);
+        }
+          catch (const std::invalid_argument &e) {
+        std::cout << e.what() << std::endl; // Handle "Vertex already has an owner"
+         } catch (const std::runtime_error &e) {
+        std::cout << e.what() << std::endl; // Handle "Not enough resources to place a settlement."
+          } catch (const std::exception &e) {
+        std::cerr << "Unexpected exception: " << e.what() << std::endl;
+      }
+          
+          delete s1;
+          delete s2;
+          delete s3;
+          delete s4;
+          delete s5;
+          
+          delete s6;
+          delete c1;
+          delete r1;
+          delete r2;
+          delete r3;
+          delete r4;
+          delete r5;
+          delete r6;
+}
+    
+   
 
     // vector<string> places = {"Mountains", "Pasture Land"};
     // vector<int> placesNum = {4, 9};
@@ -155,4 +203,3 @@ int main()
     // p3.printPoints(); // p3 has 2 points because it has two settelments.
 
     // catan.printWinner(); // Should print None because no player reached 10 points.
-}
