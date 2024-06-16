@@ -3,11 +3,6 @@
 #include "catan.hpp"
 #include <iostream>
 using namespace ariel;
-// Monopoly card
-// void Monopoly::use(int a) {
-//     std::cout << "Monopoly card used by " << player.getName() << ". All players must give " << player.getName() << " their resources of a chosen type." << std::endl;
-//     // Implement the logic to collect resources from all other players
-// }
 
 void ariel::Monopoly::use(Player &player,Board& board)
 {

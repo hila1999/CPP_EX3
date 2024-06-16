@@ -9,7 +9,6 @@ TEST_OBJ_FILES = $(TEST_SRC_FILES:.cpp=.o)
 TEST_EXECUTABLE = test_catan
 
 
-
 test_catan: $(TEST_EXECUTABLE)
 # catan: $(EXECUTABLE)
 

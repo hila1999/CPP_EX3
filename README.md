@@ -1,29 +1,95 @@
-# קטאן - מחלקות וירושה
-המתיישבים של קטאן הוא משחק קופסא ל-3 עד 4 שחקנים המשלב הן חשיבה אסטרטגית, ניהול משאבים ויכולת מסחר. מטרת המשחק היא לצבור ראשון 10 נקודות ניצחון.
-את הוראות המשחק המלא ניתן למצוא כאן: https://www.hakubia.com/wp-content/uploads/2021/01/%D7%A7%D7%98%D7%90%D7%9F.pdf.
-במטלה אתם תממשו גרסה פשוטה יותר של המשחק עבור 3 שחקנים.
-## חוקי המשחק
-המשחק מורכב מלוח המכיל 19 חלקות אדמה מוקפות בים. כל חלקת אדמה נותנת משאב כלשהו (חוץ מהמדבר). חלקות האדמה במשחק הן: יער (מניב עץ), גבעות (מניבות לבנים), אדמת מרעה (מניבה צמר), אדמה חקלאית (מניבה שיבולת), הרים (מניבים ברזל), מדבר (לא מניב כלום).
-כל חלקי המפה מקבלים מספר כלשהו בין 2 ל-12. 
-### קלפים, יישובים, ערים ומשאבים
-כל שחקן בעל משאבים (כגון שיבולת, ברזל, לבנים וכו') יכול לרכוש איתם דברים שונים במשחק כמו קלפי פיתוח, יישובים, ערים ודרכים.
-- קלף פיתוח: מחירו של קלף פיתוח הוא ברזל 1, צמר 1 ושיבולת 1. השחקן יכול לקבל אחד מ-3 סוגים שונים של קלפים: 1. קלף קידום: זהו קלף המעניק הטבה לשחקן (לאחר מכן הקלף נעלם). בין הקלפים הללו ניתן למצוא: מונופול - השחקן בוחר משאב כלשהו וכל שאר השחקנים מחוייבים להעביר לו את המשאב הזה. בניית דרכים - השחקן יכול לבנות 2 דרכים במפה ללא עלות. שנת שפע - השחקן זוכה לקבל מהבנק שני קלפים של משאבים לבחירה ולהשתמש בהם באותו התור. 2. אבירים - שחקן המחזיק ב-3 קלפים כאלה, מקבל את קלף הצבא הגדול ביותר המקנה לו 2 נקודות ניצחון (אם איבד אביר אחד, הקלף נלקח מהשחקן. שימו לב שיש בדיוק 3 קלפים כאלה!). 3. קלפי נקודות ניצחון - יש 4 קלפים שונים המעניקים נקודת ניצחון למי שמחזיק בהם.
-- בנייה: ניתן לבנות דרכים, ערים ויישובים בצורה הבאה: 1. קטע דרך: עלותו לבנים 1 ועץ 1. קטע דרך יכול להיות מחובר רק ליישוב (או עיר) בבעלות השחקן או לקטע דרך נוסף. 2. יישוב: עלות היישוב היא לבנה 1, עץ 1, צמר 1 ושיבולת 1. ניתן לבנות יישוב על צומת שאליה מובילה דרך אחת לפחות ומברחק של 2 קטעי דרך מיישוב אחר. בניית יישוב מקנה לשחקן נקודת ניצחון אחת. 3. עיר: עיר יכולה להחליף יישוב קיים. עלות הבנייה היא ברזל 3 ושיבולת 2. ברגע שמשדרגים יישוב לעיר, השחקן מאבד את הנקודה של היישוב ומקבל 2 נקודות על הבנייה. עיר מעניקה לשחקן פי-2 יותר משאבים מכל חבלי הארץ הסמוכים לה.
-- משאבים: כאמור, המשאבים מתקבלים מחבלי הארץ השונים. כאשר שחקן מטיל את קוביות המשחק, כל השחקנים מקבלים משאבים בהתאם למספר שיצא בהטלה (כלומר אם יצא 3 בהטלה, אז שחקנים עם יישובים/ערים הגובלים עם חבלי ארץ בעלי אותו מספר זוכים במשאב).
-- מסחר: שחקנים יכולים לבצע מסחר ביניהם (כלומר להחליף קלפים או משאבים) בהתאם לאיך שהם קובעים.
-### מהלך המשחק
-כל שחקן מתחיל את המשחק עם 2 יישובים ו-2 קטעי דרך המעניקים לו 2 נקודות ניצחון. בנוסף, השחקנים מקבלים משאבים התחלתיים בהתאם למקומות שבהם הם מיקמו את היישובים (משאב אחד מכל משאב אפשרי).
-סדר המשחק נקבע באופן שרירותי (לשיקולכם). בכל תור השחקנים מטילים 2 קוביות. בהתאם לתוצאת ההטלה, השחקנים מקבלים משאבים כמו שפורט מקודם.
-שחקן בתור נתון עושה את הפעולות הבאות לפי הסדר (לאחר הטלת הקוביות):
-- הוא יכול לסחור (כלומר להחליף קלפים או משאבים).
-- הוא יכול לבנות דרכים, יישובים או ערים ויכול לקנות קלפי פיתוח.
-  אם השחקן מנצל את אחד מקלפי הפיתוח שברשותו, התור אוטומטית עובר לשחקן הבא (השחקן יכול לנצל את קלף הפיתוח עוד לפני הטלת הקוביות, במקרה כזה התור עובר לשחקן הבא).
-  אם סכום ההטלה הוא 7, על כל השחקנים בעלי יותר מ-7 קלפי משאבים לבחור מחצית מהקלפים ולהחזיר אותם לערימה.
-  ### סיום המשחק
-  המשחק מסתיים בתור שבו אחד השחקנים הגיע ל-10 או יותר נקודות ניצחון. כדי לנצח במשחק, השחקן צריך שיגיע תורו ובאותו התור יהיו לו 10 נקודות לכל הפחות.
+### README for Catan-like Game Implementation
 
+#### Game Overview
+This implementation is a simplified version of a game inspired by Settlers of Catan. The game involves players collecting resources (wood, brick, sheep, wheat, ore) to build settlements and roads on a hexagonal board made up of tiles. Each tile produces resources based on a dice roll, and players gain victory points by building settlements and cities. The first player to reach a certain number of victory points wins.
 
-שימו לב - במטלה הזאת אתם לא מקבלים קבצים לדוגמה מלבד הדמו. עליכם לחשוב לבד על הלוגיקה של המשחק ולממש את החוקים (כמובן שאתם יכולים לממש לפי ראות עיניכם אבל עם הסבר). במטלה הזאת אתם תיבחנו גם על יצירתיות. נסו לבנות את לוח המשחק בצורה שתתאים למשחק המקורי (חשבו איך לממש דבר כזה, אולי להוסיף עוד מחלקות?). כמו כן, **חובה** לצרף בדיקות יחידה למטלה הזאת. הסיבה היא פשוטה - המטלה מורכבת מאוד ואתם נדרשים לבדוק את הקוד שלכם. 
+#### Class Hierarchy
 
-יש להוסיף קובץ Makefile כאשר הפקודה ``` make catan ``` מריצה את התוכנית הראשית שלכם (המדגימה סיבוב אחד במשחק). עליכם להגיש קובץ ```README``` המסביר את המימוש שלכם (כלומר מהם חוקי המשחק שהגדרתם), ההיררכיה של המחלקות ובאילו ספריות השתמשתם. עליכם גם לתאר את כל השיטות שכתבתם, ולכתוב תוכנית ```main``` המריצה סיבוב תקין של המשחק. כמו כן, עליכם לכתוב בתחילת כל קובץ את מספר תעודת הזהות שלכם ואת המייל. אי עמידה בהנחיות תגרור הפחתה בציון. 
-בהצלחה!
+1. **Player**
+   - Represents a player in the game.
+   - **Methods**:
+     - `addResources(Resource, int)`: Adds resources to the player's inventory.
+     - `addVictoryPoints(int)`: Increases the player's victory points.
+     - `getName()`: Returns the player's name.
+     - `setTurn(bool)`: Sets whether it's the player's turn.
+
+2. **Structure**
+   - Abstract class representing structures like settlements and cities.
+   - **Methods**:
+     - `getOwner()`: Returns the owner of the structure.
+
+3. **Settlement** (inherits from Structure)
+   - Represents a settlement built on a vertex of the board.
+
+4. **City** (inherits from Structure)
+   - Represents an upgraded settlement to a city.
+
+5. **Vertex**
+   - Represents a vertex on the board where structures (settlements/cities) can be built.
+   - **Methods**:
+     - `addAdjacentTile(vector<Tile>)`: Adds adjacent tiles to the vertex.
+     - `getOwner()`: Returns the owner of the vertex.
+     - `addStructure(Structure*)`: Adds a structure to the vertex.
+     - `hasSettlement()`: Checks if the vertex has a settlement.
+     - `upgradeToCity()`: Upgrades a settlement to a city.
+
+6. **Edge**
+   - Represents an edge on the board where roads can be built.
+   - **Methods**:
+     - `getOwner()`: Returns the owner of the edge.
+     - `setOwner(Player*)`: Sets the owner of the edge.
+     - `addStructure(Structure*)`: Adds a structure to the edge.
+
+7. **Tile**
+   - Represents a hexagonal tile on the board that produces resources.
+   - **Methods**:
+     - `getNumber()`: Returns the number associated with the tile.
+     - `getResourceName()`: Returns the type of resource produced by the tile.
+     - `getVertices()`: Returns indices of vertices adjacent to the tile.
+
+8. **Board**
+   - Represents the game board.
+   - **Methods**:
+     - `make()`: Initializes the board with tiles, vertices, and edges.
+     - `getTile(int)`: Returns a specific tile on the board.
+     - `getTiles()`: Returns all tiles on the board.
+     - `getVertices()`: Returns all vertices on the board.
+     - `distributeResources(int)`: Distributes resources based on a dice roll.
+     - `placeStructure(Structure&, int)`: Places a structure (settlement/city) on a vertex.
+     - `placeRoad(Structure&, int)`: Places a road on an edge.
+     - `addPlayer(Player&)`: Adds a player to the game.
+     - `getPlayers()`: Returns all players in the game.
+
+9. **Catan**
+   - Represents the main game controller.
+   - **Methods**:
+     - `ChooseStartingPlayer()`: Determines the starting player.
+     - `getCurrentPlayer()`: Returns the current player.
+     - `getBoard()`: Returns the game board.
+
+#### Libraries Used
+- `<iostream>`: Input/output operations.
+- `<iomanip>`: Formatting output.
+- `<sstream>`: String stream processing.
+- `<stdexcept>`: Standard exceptions.
+- `<typeinfo>`: Type information.
+- `<vector>`: Dynamic array container.
+- `<string>`: String handling.
+- `<map>`: Associative containers (not fully used in the provided code).
+
+#### Explanation of Methods
+
+- **Vertex::hasSettlement()**: Checks if a vertex contains a settlement by iterating through its structures and using `dynamic_cast` to differentiate between Settlement and City objects.
+  
+- **Vertex::upgradeToCity()**: Upgrades a settlement to a city if found on the vertex, replacing the settlement object with a city object in the `structures` vector.
+
+- **Board::make()**: Initializes the board with tiles, vertices, and edges, setting up the game environment for subsequent gameplay.
+
+- **Board::placeStructure()**: Places a structure (settlement or city) on a specified vertex if the vertex is valid and not already occupied.
+
+- **Board::placeRoad()**: Places a road on a specified edge if the edge is valid and not already occupied by another player's road.
+
+- **Catan::ChooseStartingPlayer()**: Sets the starting player and initializes the game.
+
+hila.shamir99@gmail.com
+314906983
