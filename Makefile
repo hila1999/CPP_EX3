@@ -1,3 +1,5 @@
+//hila.shamir99@gmail.com
+//314906983
 CXX = g++
 CXXFLAGS = -std=c++11 -Wall -Wextra -pedantic -I include -I /usr/local/include
 SRC_FILES = Demo.cpp Tile.cpp structure.cpp Board.cpp city.cpp developmentCard.cpp player.cpp road.cpp settlement.cpp catan.cpp

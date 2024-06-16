@@ -1,3 +1,5 @@
+//hila.shamir99@gmail.com
+//314906983
 #include "gtest/gtest.h"
 #include "catan.hpp"
 #include "player.hpp"

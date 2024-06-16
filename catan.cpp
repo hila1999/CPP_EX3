@@ -4,6 +4,8 @@
 #include <string>
 using namespace std;
 using namespace ariel;
+//hila.shamir99@gmail.com
+//314906983
 Catan::Catan(Player& player1, Player& player2, Player& player3) 
     : p1(player1), p2(player2), p3(player3), currentPlayer(&p1) {
     // currentPlayer = &p1;

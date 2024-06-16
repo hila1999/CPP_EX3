@@ -5,6 +5,8 @@
 #include "structure.hpp"
 #include <vector>
 using namespace std;
+//hila.shamir99@gmail.com
+//314906983
 namespace ariel {
     class Tile;
      class Player;

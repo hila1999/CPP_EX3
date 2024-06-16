@@ -2,6 +2,8 @@
  * Demo file for Ex3.
  *
  */
+//hila.shamir99@gmail.com
+//314906983
 #include "catan.hpp"
 #include "player.hpp"
 #include "Board.hpp"

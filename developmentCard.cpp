@@ -1,3 +1,5 @@
+//hila.shamir99@gmail.com
+//314906983
 #include "developmentCard.hpp"
 #include "player.hpp"
 #include "catan.hpp"
